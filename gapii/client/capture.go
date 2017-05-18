@@ -59,6 +59,8 @@ type Options struct {
 	Flags Flags
 	// APK is an apk to install before tracing
 	APK file.Path
+	// remote client ip address
+	RemoteIp string
 }
 
 const sizeGap = 1024 * 1024 * 5
@@ -92,7 +94,7 @@ func capture(ctx context.Context, port int, s task.Signal, w io.Writer, o Option
 	if task.Stopped(ctx) {
 		return 0, nil
 	}
-	conn, err := net.Dial("tcp", fmt.Sprintf("localhost:%d", port))
+	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", o.RemoteIp, port))
 	if err != nil {
 		return 0, nil // Treat failure-to-connect as target-not-ready instead of an error.
 	}

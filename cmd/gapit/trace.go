@@ -50,12 +50,17 @@ func init() {
 }
 
 func (verb *traceVerb) Run(ctx context.Context, flags flag.FlagSet) error {
+	if len(verb.RemoteIp) > 0 {
+		verb.Local.Port = 9286
+	}
+
 	options := client.Options{
 		ObserveFrameFrequency: uint32(verb.Observe.Frames),
 		ObserveDrawFrequency:  uint32(verb.Observe.Draws),
 		StartFrame:            uint32(verb.Start.At.Frame),
 		FramesToCapture:       uint32(verb.Capture.Frames),
 		APK:                   verb.APK,
+		RemoteIp:              verb.RemoteIp,
 	}
 
 	if verb.Disable.PCS {

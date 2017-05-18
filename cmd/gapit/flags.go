@@ -166,6 +166,7 @@ type (
 		Capture struct {
 			Frames int `help:"only capture the given number of frames. 0 for all"`
 		}
+		RemoteIp string `help:"remote ip address to caputre trace"`
 	}
 	PackagesFlags struct {
 		DeviceFlags
